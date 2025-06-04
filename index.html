@@ -16,6 +16,25 @@
       background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png') repeat;
       background-color: #0d0d0d;
       color: #fff;
+      opacity: 0;
+      animation: fadeInBody 1s ease forwards;
+    }
+
+    @keyframes fadeInBody {
+      to {
+        opacity: 1;
+      }
+    }
+
+    .fade-up {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    .fade-up.show {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     header {
@@ -152,32 +171,48 @@
   </style>
 </head>
 <body>
-  <header>
+  <header class="fade-up">
     <h1>É Tudo Sobre Ele</h1>
     <p>Uma expressão de fé, estilo e identidade. Camisas inspiradas no amor, na força e na presença de Yeshua.</p>
   </header>
 
-  <section class="gallery">
+  <section class="gallery fade-up">
     <img src="imagem/1000201435.jpg" alt="Camisa Frente" />
     <img src="imagem/1000201436.jpg" alt="Camisa Costas" />
   </section>
 
-  <section class="description">
+  <section class="description fade-up">
     <h2>Sobre a Camisa</h2>
     <p>
-      Tecido 100% algodão de alta qualidade, toque suave e respirável. Estampa duradoura e design exclusivo.
+      Tecido 100% algodão de alta qualidade, toque suave e respirável. Cor marfim e design exclusivo.
       Disponível nos tamanhos P, M, G, GG e XG.
     </p>
   </section>
 
-  <section class="highlight">
+  <section class="highlight fade-up">
     <h3>Promoção Especial de Lançamento!</h3>
     <p>De <span>R$ 100</span></p>
     <strong>Por apenas R$ 60!</strong>
   </section>
 
-  <section class="cta">
+  <section class="cta fade-up">
     <a href="https://wa.me/37998040489" target="_blank">Encomende agora pelo WhatsApp</a>
   </section>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('show');
+        }
+      });
+    }, {
+      threshold: 0.1
+    });
+
+    document.querySelectorAll('.fade-up').forEach(el => {
+      observer.observe(el);
+    });
+  </script>
 </body>
 </html>
